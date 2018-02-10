@@ -1,0 +1,122 @@
+//@require './file.styl1'
+
+border-radius()
+    -webkit-border-radius: arguments
+    -moz-border-radius: arguments
+    border-radius: arguments
+
+border(thin, thick)
+    border-top: solid black thin
+    border-right: solid black thin
+    border-bottom: solid black thick
+    border-left solid black thick
+
+*, *:before, *:after
+    box-sizing: border-box
+
+body
+    display: flex
+    flex-flow: column nowrap
+    justify-content: center
+    align-items: center
+    background-color: white
+    color: black
+    font-size: 1rem
+
+footer
+    position: fixed
+    bottom: 0
+    margin-bottom: 1rem
+    font-size: 0.5rem
+
+#calculator
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr
+    grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal'
+    grid-column-gap: 5px
+    grid-row-gap: 5px
+    border(1px, 4px)
+    padding: 10px
+
+button
+     border(1px, 4px)
+
+#display
+    grid-column: 1 / span 4
+    grid-row: 1 / 2
+    justify-self: stretch
+    align-self: stretch
+    padding: 5px
+    text-align: right
+    background-color: black
+    color: red
+
+// BUTTONS
+
+.clear
+    background-color: lighten(#FF0000, 30%)
+.formatter
+    background-color: lighten(#999999, 60%)
+.operator
+    background-color: lighten(#999999, 30%)
+
+#AC
+    grid-area: AC
+
+#CE
+    grid-area: CE
+
+#pos-neg
+    grid-area: posneg
+
+#percent
+    grid-area: percent
+
+#divide
+    grid-area: divide
+
+#multiply
+    grid-area: multiply
+
+#subtract
+    grid-area: subtract
+
+#add
+    grid-area: add
+
+#equal
+    grid-area: equal
+
+#nine
+    grid-area: nine
+
+#eight
+    grid-area: eight
+
+#seven
+    grid-area: seven
+
+#six
+    grid-area: six
+
+#five
+    grid-area: five
+
+#four
+    grid-area: four
+
+#three
+    grid-area: three
+
+#two
+    grid-area: two
+
+#one
+    grid-area: one
+
+#zero
+    grid-area: zero
+
+#decimal
+    grid-area: decimal
