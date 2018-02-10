@@ -11,11 +11,11 @@ tablet = '(min-width: 1020px)'
 smallMobile = '(max-width: 420px)'
 
 //FUNCTIONS
-border(thin, thick)
-    border-top: solid black thin
-    border-right: solid black thin
-    border-bottom: solid black thick
-    border-left solid black thick
+border(color, thin, thick)
+    border-top: solid color thin
+    border-right: solid color thin
+    border-bottom: solid color thick
+    border-left solid color thick
 
 //GENERAL & LAYOUT
 *, *:before, *:after
@@ -44,7 +44,7 @@ footer
     grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal'
     grid-column-gap: 10px
     grid-row-gap: 10px
-    border(3px, 8px)
+    border(black, 3px, 8px)
     padding: 10px
     margin-left: 2rem
     margin-right: 2rem
@@ -60,19 +60,21 @@ footer
         min-height: 80%
         grid-column-gap: 5px
         grid-row-gap: 5px
-        border(1px, 5px)  
+        border(black, 1px, 5px)  
         font-size: fontSize/2 
   
 
 button
-    border(3px, 8px)
-    background-color: white
+    border(black, 3px, 8px)
     font-family: typeFace
     font-size: fontSize
     text-align: center
     @media smallMobile
-        border(1px, 5px)
+        border(black, 1px, 5px)
         font-size: fontSize/2
+
+button:focus, button:visited
+    outline: none;
 
 #display
     grid-column: 1 / span 4
@@ -104,10 +106,27 @@ button
 
 .clear
     background-color: lighten(color1, 30%)
+.clear:active
+    background-color: lighten(color1, 30%)
+    border(lighten(color1, 30%), 1px, 5px)
+    color: white
+.digit
+    background-color: white
+.digit:active
+    background-color: black
+    color: white
 .formatter
     background-color: lighten(color2, 60%)
+.formatter:active
+    background-color: lighten(color2, 60%)
+    border(lighten(color2, 60%), 1px, 5px)
+    color: white
 .operator
     background-color: lighten(color2, 30%)
+.operator:active
+    background-color: lighten(color2, 30%)
+    border(lighten(color2, 30%), 1px, 5px)
+    color: white
 
 #AC
     grid-area: AC
