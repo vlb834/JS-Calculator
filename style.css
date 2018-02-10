@@ -10,42 +10,80 @@ body {
   align-items: center;
   background-color: #fff;
   color: #000;
-  font-size: 1rem;
 }
 footer {
   position: fixed;
   bottom: 0;
-  margin-bottom: 1rem;
-  font-size: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
 }
 #calculator {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal';
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
-  border-top: solid #000 1px;
-  border-right: solid #000 1px;
-  border-bottom: solid #000 4px;
-  border-left: solid #000 4px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border-top: solid #000 3px;
+  border-right: solid #000 3px;
+  border-bottom: solid #000 8px;
+  border-left: solid #000 8px;
   padding: 10px;
+  font-size: 3vh;
+  font-family: 'Orbitron', sans-serif;
+  max-width: 500px;
+  max-height: 800px;
+  min-height: 80%;
+}
+@media (max-width: 420px) {
+  #calculator {
+    height: 90%;
+    width: 100%;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    border-top: solid #000 1px;
+    border-right: solid #000 1px;
+    border-bottom: solid #000 5px;
+    border-left: solid #000 5px;
+    font-size: 3vh/2;
+  }
 }
 button {
-  border-top: solid #000 1px;
-  border-right: solid #000 1px;
-  border-bottom: solid #000 4px;
-  border-left: solid #000 4px;
+  border-top: solid #000 3px;
+  border-right: solid #000 3px;
+  border-bottom: solid #000 8px;
+  border-left: solid #000 8px;
+  background-color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3vh;
+  text-align: center;
+}
+@media (max-width: 420px) {
+  button {
+    border-top: solid #000 1px;
+    border-right: solid #000 1px;
+    border-bottom: solid #000 5px;
+    border-left: solid #000 5px;
+    font-size: 3vh/2;
+  }
 }
 #display {
   grid-column: 1/span 4;
   grid-row: 1/2;
-  justify-self: stretch;
-  align-self: stretch;
-  padding: 5px;
+  padding: 20px;
   text-align: right;
   background-color: #000;
   color: #f00;
+}
+#inputs {
+  font-size: 6vh;
+  letter-spacing: 2;
+}
+#operation-string {
+  font-size: 3vh/2;
+  letter-spacing: 2;
 }
 .clear {
   background-color: #ff4d4d;
@@ -115,4 +153,5 @@ button {
 }
 #decimal {
   grid-area: decimal;
+  font-weight: 900;
 }

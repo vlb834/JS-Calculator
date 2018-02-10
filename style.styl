@@ -1,16 +1,23 @@
 //@require './file.styl1'
 
-border-radius()
-    -webkit-border-radius: arguments
-    -moz-border-radius: arguments
-    border-radius: arguments
+// VARIABLES 
+typeFace = 'Orbitron', sans-serif;
+color1 = #FF0000
+color2 = #999999
+fontSize = 3vh
 
+//tablet = 1024px
+//largeMobile = 768px
+smallMobile = '(max-width: 420px)'
+
+//FUNCTIONS
 border(thin, thick)
     border-top: solid black thin
     border-right: solid black thin
     border-bottom: solid black thick
     border-left solid black thick
 
+//GENERAL & LAYOUT
 *, *:before, *:after
     box-sizing: border-box
 
@@ -21,45 +28,72 @@ body
     align-items: center
     background-color: white
     color: black
-    font-size: 1rem
 
 footer
     position: fixed
     bottom: 0
-    margin-bottom: 1rem
-    font-size: 0.5rem
+    margin-top: 1rem
+    margin-bottom: .5rem
+    font-size: 1rem
+    font-family: typeFace
 
 #calculator
     display: grid
     grid-template-columns: 1fr 1fr 1fr 1fr
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr
     grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal'
-    grid-column-gap: 5px
-    grid-row-gap: 5px
-    border(1px, 4px)
+    grid-column-gap: 10px
+    grid-row-gap: 10px
+    border(3px, 8px)
     padding: 10px
+    font-size: fontSize
+    font-family: typeFace
+    max-width: 500px
+    max-height: 800px
+    min-height: 80%
+    @media smallMobile
+        height: 90%
+        width: 100% 
+        grid-column-gap: 5px
+        grid-row-gap: 5px
+        border(1px, 5px)  
+        font-size: fontSize/2 
 
 button
-     border(1px, 4px)
+    border(3px, 8px)
+    background-color: white
+    font-family: typeFace
+    font-size: fontSize
+    text-align: center
+    @media smallMobile
+        border(1px, 5px)
+        font-size: fontSize/2
 
 #display
     grid-column: 1 / span 4
     grid-row: 1 / 2
-    justify-self: stretch
-    align-self: stretch
-    padding: 5px
+    padding: 20px
     text-align: right
     background-color: black
-    color: red
+    color: color1
+    
+#inputs
+    font-size: fontSize * 2
+    letter-spacing: 2
+
+#operation-string
+    font-size: fontSize / 2
+    letter-spacing: 2
+
 
 // BUTTONS
 
 .clear
-    background-color: lighten(#FF0000, 30%)
+    background-color: lighten(color1, 30%)
 .formatter
-    background-color: lighten(#999999, 60%)
+    background-color: lighten(color2, 60%)
 .operator
-    background-color: lighten(#999999, 30%)
+    background-color: lighten(color2, 30%)
 
 #AC
     grid-area: AC
@@ -120,3 +154,4 @@ button
 
 #decimal
     grid-area: decimal
+    font-weight: 900
