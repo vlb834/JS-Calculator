@@ -1,12 +1,18 @@
 
 let memoryArray = []; // 0123456789.
 let memory = memoryArray.join(''); // to display
+let operationMem = function(mem) { 
+    console.log("opm:", mem);
+    displayInput(); 
+    allClear();
+    return mem; 
+};
 
 // DISPLAY
 function displayInput() {
     console.log(memory);
     let displayMem = Number(memory);
-    // .toFixed(8);
+    // .toFixed(8); 
     document.getElementById("inputs").innerHTML = displayMem;
 } 
 
@@ -50,11 +56,15 @@ function allClear() {
 function donada() {
     return NaN;
 }
-// function add(memory) {
-//   return function(newMemory) {
-//     memory + newMemory
-//   }
-// }
+function add() {
+  memory = memoryArray.join('');
+  memory = operationMem(memory);
+  operationMem = function(newMemory) {
+    return memory + newMemory
+  }
+  console.log(operationMem);
+  return operationMem;
+}
 
 // DOM EVENT LISTENTERS // 
 window.onload = function () {
@@ -66,6 +76,6 @@ window.onload = function () {
     document.getElementById("divide").addEventListener("click", donada, false);
     document.getElementById("multiply").addEventListener("click", donada, false);
     document.getElementById("subtract").addEventListener("click", donada, false);
-    document.getElementById("add").addEventListener("click", donada, false);
+    document.getElementById("add").addEventListener("click", add, false);
 }
 
