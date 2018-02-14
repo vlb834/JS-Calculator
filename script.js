@@ -4,7 +4,7 @@ let memory = Number(memoryArray.join('')); // to display
 let operationMemArray = [];
 
 function displayInput() {
-    document.getElementById("inputs").innerHTML = memory;
+    document.getElementById("inputs").innerHTML = Number(memoryArray.join(''));
     document.getElementById("operation-string").innerHTML = operationMemArray.join('');
     console.log("memory", memory);
 }
