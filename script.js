@@ -5,34 +5,33 @@ let operationMemArray = [];
 function displayInput() {
     document.getElementById("inputs").innerHTML = memory;
     document.getElementById("operation-string").innerHTML = operationMemArray.join('');
-    console.log("memory", memory);
 } 
 
-function clearInput() {
+function processMemoryAndDiplayInput() {
     memory = Number(memoryArray.join('')); 
     displayInput();
+    console.log('mem:', memory);
 }
 function operation(sign) {
     operationMemArray.push(memory);
     operationMemArray.push(sign);
     memoryArray = [];
-    memory = Number(memoryArray.join(''));
-    displayInput();
+    processMemoryAndDiplayInput(); 
 }
 function execute() {
     operationMemArray.pop();
     memory = eval(operationMemArray.join(''));
     document.getElementById("inputs").innerHTML = memory;
     operationMemArray = [];
-    console.log("memory", memory);
 }
+
 function actionInput(input) {
     let inputVal = input.target.value;
     let inputID = input.target.id;
     if (inputID) {
         switch (inputID) {
-            case 'AC': memoryArray = []; operationMemArray = []; clearInput(); break;
-            case 'CE': memoryArray.pop(); clearInput(); break;
+            case 'AC': memoryArray = []; operationMemArray = []; processMemoryAndDiplayInput(); break;
+            case 'CE': memoryArray.pop(); processMemoryAndDiplayInput(); break;
             case 'percent': memory = memory / 100; displayInput(); break;
             case 'pos-neg': memory = memory * -1; displayInput(); break;
             case 'divide': operation(inputVal); break;
@@ -49,8 +48,7 @@ function actionInput(input) {
         } else {
             memoryArray.push(Number(inputVal));
         }
-        memory = Number(memoryArray.join(''));
-        displayInput();
+        processMemoryAndDiplayInput();
     }
 }
 
