@@ -1,19 +1,13 @@
 
 let memoryArray = []; // 0123456789.
-let memory = memoryArray.join(''); // to display
-let operationMem = function(mem) { 
-    console.log("opm:", mem);
-    displayInput(); 
-    allClear();
-    return mem; 
-};
+let memory = Number(memoryArray.join('')); // to display
+let operationMemArray = [];
+//let operation = Number(operationMemArray.join('')); // to display
 
 // DISPLAY
 function displayInput() {
-    console.log(memory);
-    let displayMem = Number(memory);
-    // .toFixed(8); 
-    document.getElementById("inputs").innerHTML = displayMem;
+    document.getElementById("inputs").innerHTML = memory;
+    document.getElementById("operation-string").innerHTML = operationMemArray.join('');
 } 
 
 // POSITIVE NEGATIVE 
@@ -30,40 +24,52 @@ function percent() {
 // LOG INPUT INTO MEMORY ARRAY
 function logInput(input) {
     let inputVal = input.target.value
-    if (inputVal === "." && memoryArray.includes('.') === false) {
-        memoryArray.push(inputVal);
-    } else if (inputVal === "." && memoryArray.includes('.') === true) {
-        return;
-    } else {
-        memoryArray.push(Number(inputVal));
-    }
-    memory = memoryArray.join('');
-    displayInput();
-}
+   // if (memory.length < 10) {
+        if (inputVal === "." && memoryArray.includes('.') === false) {
+            memoryArray.push(inputVal);
+        } else if (inputVal === "." && memoryArray.includes('.') === true) {
+            return;
+        } else {
+            memoryArray.push(Number(inputVal));
+        }
+        memory =  Number(memoryArray.join(''));
+        displayInput();
+    } //else {
+     //   alert ("MAX DISPLAY LENGTH REACHED (try using a proper calculator!)")
+   // }
+//}
 
 function clearEntry() {
     memoryArray.pop();
-    memory = memoryArray.join('');
+    memory = Number(memoryArray.join(''));
     displayInput();
 }
 
 function allClear() {
     memoryArray = [];
-    memory = memoryArray.join('');
+    memory = Number(memoryArray.join(''));
     displayInput();
 }
 
 function donada() {
     return NaN;
 }
-function add() {
-  memory = memoryArray.join('');
-  memory = operationMem(memory);
-  operationMem = function(newMemory) {
-    return memory + newMemory
-  }
-  console.log(operationMem);
-  return operationMem;
+function operation(input) {
+    let inputSign = input.target.value
+    operationMemArray.push(memory);
+    operationMemArray.push(inputSign);
+    memoryArray = [];
+    console.log("op", operationMemArray);
+}
+
+function execute() {
+    operationMemArray.push(memory);
+    memoryArray = [];
+    console.log(operationMemArray.join(''));
+    return function() {
+        let total = operationMemArray.join('');
+        return total();
+    }
 }
 
 // DOM EVENT LISTENTERS // 
@@ -73,9 +79,11 @@ window.onload = function () {
     document.getElementById("numbers").addEventListener("click", logInput, false);
     document.getElementById("percent").addEventListener("click", percent, false);
     document.getElementById("pos-neg").addEventListener("click", toggleSign, false);
-    document.getElementById("divide").addEventListener("click", donada, false);
-    document.getElementById("multiply").addEventListener("click", donada, false);
-    document.getElementById("subtract").addEventListener("click", donada, false);
-    document.getElementById("add").addEventListener("click", add, false);
+    document.getElementById("divide").addEventListener("click", operation, false);
+    document.getElementById("multiply").addEventListener("click", operation, false);
+    document.getElementById("subtract").addEventListener("click", operation, false);
+    document.getElementById("add").addEventListener("click", operation, false);
+    document.getElementById("equal").addEventListener("click", execute, false);
+
 }
 
