@@ -23,7 +23,6 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal';
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   border-top: solid #000 3px;
@@ -54,6 +53,47 @@ footer {
     font-size: 3vh/2;
   }
 }
+#display {
+  grid-column: 1/span 4;
+  grid-row: 1/2;
+  padding: 20px 10px 20px 10px;
+  text-align: right;
+  vertical-align: bottom;
+  background-color: #000;
+}
+#inputs {
+  font-size: 6vh;
+  letter-spacing: 2;
+  margin-right: -8px;
+  color: #f00;
+  height: 100px;
+}
+@media (min-width: 1020px) {
+  #inputs {
+    font-size: 4.5vh;
+  }
+}
+#operation-string {
+  letter-spacing: 2;
+  vertical-align: bottom;
+  padding-top: 20px;
+  color: #999;
+}
+@media (min-width: 1020px) {
+  #operation-string {
+    font-size: 2.4vh;
+  }
+}
+#clickable {
+  grid-column: 1/span 4;
+  grid-row: 2/span 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal';
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
 button {
   border-top: solid #000 3px;
   border-right: solid #000 3px;
@@ -75,36 +115,6 @@ button {
 button:focus,
 button:visited {
   outline: none;
-}
-#display {
-  grid-column: 1/span 4;
-  grid-row: 1/2;
-  padding: 20px 10px 20px 10px;
-  text-align: right;
-  vertical-align: bottom;
-  background-color: #000;
-}
-#inputs {
-  font-size: 6vh;
-  letter-spacing: 2;
-  margin-right: -8px;
-  color: #f00;
-}
-@media (min-width: 1020px) {
-  #inputs {
-    font-size: 4.5vh;
-  }
-}
-#operation-string {
-  letter-spacing: 2;
-  vertical-align: bottom;
-  padding-top: 20px;
-  color: #999;
-}
-@media (min-width: 1020px) {
-  #operation-string {
-    font-size: 2.4vh;
-  }
 }
 .clear {
   background-color: #ff4d4d;

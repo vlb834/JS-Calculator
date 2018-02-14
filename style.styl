@@ -41,7 +41,6 @@ footer
     display: grid
     grid-template-columns: 1fr 1fr 1fr 1fr
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr
-    grid-template-areas: 'display display display display' 'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal'
     grid-column-gap: 10px
     grid-row-gap: 10px
     border(black, 3px, 8px)
@@ -62,19 +61,6 @@ footer
         grid-row-gap: 5px
         border(black, 1px, 5px)  
         font-size: fontSize/2 
-  
-
-button
-    border(black, 3px, 8px)
-    font-family: typeFace
-    font-size: fontSize
-    text-align: center
-    @media smallMobile
-        border(black, 1px, 5px)
-        font-size: fontSize/2
-
-button:focus, button:visited
-    outline: none;
 
 #display
     grid-column: 1 / span 4
@@ -100,6 +86,30 @@ button:focus, button:visited
     color: color2
     @media tablet
         font-size: fontSize * .8
+
+ #clickable 
+    grid-column: 1 / span 4
+    grid-row: 2 / span 5
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr
+    grid-template-areas: 
+    'AC CE percent divide' 'seven eight nine multiply' 'four five six subtract' 'one two three add' 'posneg decimal zero equal'
+    grid-column-gap: 10px
+    grid-row-gap: 10px
+
+button
+    border(black, 3px, 8px)
+    font-family: typeFace
+    font-size: fontSize
+    text-align: center
+    @media smallMobile
+        border(black, 1px, 5px)
+        font-size: fontSize/2
+
+button:focus, button:visited
+    outline: none;
+
 
 
 // BUTTONS
@@ -128,9 +138,6 @@ button:focus, button:visited
     border(lighten(color2, 30%), 1px, 5px)
     color: white
 
-#numbers
-    grid-column: 1 / span 4
-    grid-row: 1 / 2
 #AC
     grid-area: AC
 
