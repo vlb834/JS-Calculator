@@ -184,37 +184,6 @@ button:visited {
 #equal {
   grid-area: equal;
 }
-#nine {
-  grid-area: nine;
-}
-#eight {
-  grid-area: eight;
-}
-#seven {
-  grid-area: seven;
-}
-#six {
-  grid-area: six;
-}
-#five {
-  grid-area: five;
-}
-#four {
-  grid-area: four;
-}
-#three {
-  grid-area: three;
-}
-#two {
-  grid-area: two;
-}
-#one {
-  grid-area: one;
-}
-#zero {
-  grid-area: zero;
-}
-#decimal {
-  grid-area: decimal;
+.decimal {
   font-weight: 900;
 }
