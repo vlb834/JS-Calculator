@@ -138,7 +138,8 @@ button:visited {
 .operator {
   background-color: #b8b8b8;
 }
-.operator:active {
+.operator:active,
+.operator:focus {
   background-color: #b8b8b8;
   border-top: solid #b8b8b8 1px;
   border-right: solid #b8b8b8 1px;

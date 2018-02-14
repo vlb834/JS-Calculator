@@ -84,12 +84,12 @@ button:focus, button:visited
     vertical-align: bottom 
     background-color: black
     
-    
 #inputs
     font-size: fontSize * 2
     letter-spacing: 2
     margin-right: -8px
     color: color1
+    height: 100px;
     @media tablet
         font-size: fontSize * 1.5
 
@@ -123,11 +123,14 @@ button:focus, button:visited
     color: white
 .operator
     background-color: lighten(color2, 30%)
-.operator:active
+.operator:active, .operator:focus
     background-color: lighten(color2, 30%)
     border(lighten(color2, 30%), 1px, 5px)
     color: white
 
+#numbers
+    grid-column: 1 / span 4
+    grid-row: 1 / 2
 #AC
     grid-area: AC
 
