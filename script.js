@@ -1,12 +1,16 @@
-
 let memoryArray = []; // 0123456789.
 let memory = Number(memoryArray.join('')); // to display
 let operationMemArray = [];
 
 function displayInput() {
-    document.getElementById("inputs").innerHTML = Number(memoryArray.join(''));
+    document.getElementById("inputs").innerHTML = memory;
     document.getElementById("operation-string").innerHTML = operationMemArray.join('');
     console.log("memory", memory);
+} 
+
+function clearInput() {
+    memory = Number(memoryArray.join('')); 
+    displayInput();
 }
 function operation(sign) {
     operationMemArray.push(memory);
@@ -15,12 +19,9 @@ function operation(sign) {
     memory = Number(memoryArray.join(''));
     displayInput();
 }
-
 function execute() {
     operationMemArray.pop();
     memory = eval(operationMemArray.join(''));
-   // let operation = operationMemArray.join('') - constructor function 
-   // let doMath = Function('return ' + operation)();
     document.getElementById("inputs").innerHTML = memory;
     operationMemArray = [];
     console.log("memory", memory);
@@ -30,8 +31,8 @@ function actionInput(input) {
     let inputID = input.target.id;
     if (inputID) {
         switch (inputID) {
-            case 'AC': memoryArray = []; operationMemArray = []; displayInput(); break;
-            case 'CE': memoryArray.pop(); operationMemArray.pop(); displayInput(); break;
+            case 'AC': memoryArray = []; operationMemArray = []; clearInput(); break;
+            case 'CE': memoryArray.pop(); clearInput(); break;
             case 'percent': memory = memory / 100; displayInput(); break;
             case 'pos-neg': memory = memory * -1; displayInput(); break;
             case 'divide': operation(inputVal); break;
@@ -58,3 +59,7 @@ window.onload = function () {
     document.getElementById("clickable").addEventListener("click", actionInput, false);
 }
 
+
+
+ // let operation = operationMemArray.join('') - constructor function 
+ // let doMath = Function('return ' + operation)();
