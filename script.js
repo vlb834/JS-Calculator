@@ -13,7 +13,7 @@ function operation(sign) {
     operationMemArray.push(sign);
     memoryArray = [];
     memory = Number(memoryArray.join(''));
-    displayInput();
+    displayInput();git 
 }
 
 function execute() {
