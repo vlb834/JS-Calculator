@@ -1,55 +1,36 @@
-let memoryArray = []; // 0123456789.
-let memory = Number(memoryArray.join('')); // to display
-let operationMemArray = [];
+
 
 function displayInput() {
     document.getElementById("inputs").innerHTML = memory;
     document.getElementById("operation-string").innerHTML = operationMemArray.join('');
 } 
 
-function processMemoryAndDiplayInput() {
-    memory = Number(memoryArray.join('')); 
-    displayInput();
-    console.log('mem:', memory);
-}
-function operation(sign) {
-    operationMemArray.push(memory);
-    operationMemArray.push(sign);
-    memoryArray = [];
-    processMemoryAndDiplayInput(); 
-}
-function execute() {
-    operationMemArray.pop();
-    memory = eval(operationMemArray.join(''));
-    document.getElementById("inputs").innerHTML = memory;
-    operationMemArray = [];
-}
-
 function actionInput(input) {
     let inputVal = input.target.value;
     let inputID = input.target.id;
-    if (inputID) {
-        switch (inputID) {
-            case 'AC': memoryArray = []; operationMemArray = []; processMemoryAndDiplayInput(); break;
-            case 'CE': memoryArray.pop(); processMemoryAndDiplayInput(); break;
-            case 'percent': memory = memory / 100; displayInput(); break;
-            case 'pos-neg': memory = memory * -1; displayInput(); break;
-            case 'divide': operation(inputVal); break;
-            case 'multiply': operation(inputVal); break;
-            case 'subtract': operation(inputVal); break;
-            case 'add': operation(inputVal); break;
-            case 'equal': operation(inputVal); execute(); break;
-        }
-    } else {
-        if (inputVal === "." && memoryArray.includes('.') === false) {
-            memoryArray.push(inputVal);
-        } else if (inputVal === "." && memoryArray.includes('.') === true) {
-            return;
-        } else {
-            memoryArray.push(Number(inputVal));
-        }
-        processMemoryAndDiplayInput();
-    }
+}
+
+  // three variable
+  // var state of number = starts at +
+  // var number = starts at 0  - store as a string instead as an array
+  // var acummulator =  starts at 0  
+  // var operation = sign  (start a null)
+  // all operator cause an action
+
+   // number button - initialise all number with zero. Append to end current displayed number else start new number
+   // plusminue button - toggle minus state         
+   // equals button -  check operator if null do nothing
+                        // else apply arimetic operation to accumulator and (apply state & logic rules to validate/cleanupNumber - Eval number string)
+                        // number (acc operator num) and save result as accumulator
+                        // new number becomes zero
+                        // display new number 
+    // arithmatic button - do equals button logic, then set operator to arithmetic sign.
+    // percentage = eval number into number set current number to number/100 = convert back to previous format (string) 
+    // CE - clear state, operation, number
+    // AC - call CE, clear Accummulator   
+
+    //jasmine - mocha - jest
+    //NtN - unit test vs code  - ActionInput function 
 }
 
 // DOM EVENT LISTENTERS //
