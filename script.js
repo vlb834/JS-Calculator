@@ -1,42 +1,37 @@
-// GLOBAL VARIABLES 
-// three variable
-// var state of number = starts at +
-// var number = starts at 0  - store as a string instead as an array
-// var acummulator =  starts at 0  
-// var operation = sign  (start a null)
-// all operator cause an action
+// JAVASCRIPT CALCULATOR
+// known issues - occassionly after EVAL display shows "-0" // TO FIX
 
-
+// GLOBAL VARIABLES
 let posnegState = '';
 let numberEntry = '';
 let accumulator = 0;
-let operator = null;
 let operationMemArray = [];
-let operationDisplay = [];
+let lastInputVal = '';
+const signs = /[*|/|+|-]/;
 
-
-function display(value) {
+// DISPLAY 
+function display(value) { // numberEntry and operation results
     document.getElementById("inputs").innerHTML = posnegState + value;
-    console.log("acc:", accumulator);
-    console.log("sign:", operator);
-    console.log("number:", posnegState, numberEntry);
-    console.log(operationMemArray);
 }
-function displayOperation(value) {
+function displayOperation(value) { // operation string being evaluated
     document.getElementById("operation-string").innerHTML = value;
 }
-function clearEntry() {
+
+// CLEARING
+function clearEntry() { // does not clear the last inputted operation sign
     posnegState = '';
     numberEntry = '';
-    operator = null;
     display(0);
-    displayOperation(0) 
 }
 function clearAll() {
     clearEntry();
+    displayOperation(0);
     accumulator = 0;
     operationMemArray = [];
+    lastInputVal = '';
 }
+
+// FUNCTIONS THAT ACT ONLY on displayed numberEntry - no effect on operation memory array
 function toggleState() {
     if (posnegState === '') {
         posnegState = '-'
@@ -46,7 +41,7 @@ function toggleState() {
     display(numberEntry);
 }
 function makePercent() {
-    if (numberEntry === '') {
+    if (numberEntry === '') { // ensures button does nothing of no number to act upon
         return;
     } else {
         let percentVal = eval(numberEntry) / 100;
@@ -54,94 +49,117 @@ function makePercent() {
         display(numberEntry);
     }
 }
+
+// OPERATION FUNCTIONS 
+
+// Logs the digit input into the numberEntry
 function logDigit(value) {
     const validRegex = /[0-9]|\./;
     if (validRegex.test(value) && value !== '.') {
         numberEntry = numberEntry + value;
-        // ugly code but works to handle decimal point input...     
     } else if (validRegex.test(value) && value === '.' && numberEntry !== '') {
-        if (numberEntry.includes('.')) {
+        if (numberEntry.includes('.')) { // ensures a numberEntry cannot have more than one decimal point
             return;
         } else {
             numberEntry = numberEntry + value;
         }
     } else if (validRegex.test(value) && value === '.' && numberEntry === '') {
-        numberEntry = 0 + value;
+        numberEntry = 0 + value;  // ensures decimal number starts with leading zero
     } else {
         return;
     }
     display(numberEntry);
 }
-function equals() {
-    if (operator === null) {
-        operationMemArray.push(posnegState + numberEntry);
-        operationDisplay.push(posnegState + numberEntry);
-        accumulator = eval(operationMemArray.join(''));
-        numberEntry = '';
-        console.log("acc:", accumulator);
-        console.log("sign:", operator);
-        console.log("number:", posnegState, numberEntry);
-        console.log(operationMemArray);
-    } else if (operator !== null) {
-        operationMemArray.push(accumulator);
-        operationMemArray.push(operator);
-        operationMemArray.push(posnegState + numberEntry);
-        operationDisplay.push(posnegState + numberEntry);
-        accumulator = eval(operationMemArray.join(''));
-        posnegState = '';
-        numberEntry = '';
-        display(accumulator);
-      //  operationDisplay.push(posnegState + numberEntry);
-
+// EVALUATES OPERATION ARRAY and logs result into cleared operation array awaiting new follow up inputs
+function equals(inputVal) {
+    // if operation array ends in operator sign, then pops last sign and EVALS
+    if (lastInputVal === '+' || lastInputVal === '-' || lastInputVal === '/' || lastInputVal === '*') {
+        operationMemArray.pop();
+    } 
+    operationMemArray.push(posnegState);
+    operationMemArray.push(numberEntry);
+    accumulator = eval(operationMemArray.join(''));
+    posnegState = '';
+    numberEntry = '';
+    display(accumulator);
+    operationMemArray.push(inputVal);
+    displayOperation(operationMemArray.join(''));
+    operationMemArray = [];
+    operationMemArray.push(accumulator);
+}
+// Logs the current numberEntry and operation sign inputted into the operation array / resets numberEntry
+function arithmetic(operatorVal) {
+    operationMemArray.push(posnegState);
+    operationMemArray.push(numberEntry);
+    operationMemArray.push(operatorVal);
+    posnegState = '';
+    numberEntry = '';
+}
+// Ensures nothing happens to an operation result (accumulator variable), & function only acts on a numberEntry
+function equalLastInputCheck() { 
+    if (lastInputVal === '=') {
+        clearAll();
     }
 }
-function arithmetic(operatorVal) {
-    operator = operatorVal;
-    operationMemArray = [];
-    operationDisplay.push(operator);
-    displayOperation(operationDisplay.join(''));
+// Determines action of button press based on last button input
+function lastInputCheck(operatorVal) {
+    display(0);
+    // can this IF statement be rewritten to use the global signs constant????
+    if (lastInputVal === '+' || lastInputVal === '-' || lastInputVal === '/' || lastInputVal === '*') {
+        // Changes last operator sign in operation array if multiple signs pressed in succession rather than operator followed by number.
+        operationMemArray.pop();
+        operationMemArray.push(operatorVal);
+    } else {
+        arithmetic(operatorVal);
+    }
+    displayOperation(operationMemArray.join(''));
 }
 
-
+// LOGS EVENT BUTTON CLICK and determines control flow
 function actionInput(input) {
     let inputVal = input.target.value;
     let inputID = input.target.id;
-    console.log(inputID, inputVal);
     if (inputID) {
         switch (inputID) {
-            case 'CE': clearEntry(); break;
+            case 'CE': 
+                clearEntry(); 
+                inputVal = "+"; // inputVal set to prevent doubling up of operators in array.
+                break; 
             case 'AC': clearAll(); break;
-            case 'pos-neg': toggleState(); break;
-            case 'percent': makePercent(); break;
+            case 'pos-neg': equalLastInputCheck(); toggleState(); break;
+            case 'percent': equalLastInputCheck(); makePercent(); break;
             case 'equal':
-                equals(inputVal);
+                // ensures button only performs evaluation if operation array includes an operator
+                if (signs.test(operationMemArray.join(''))) { 
+                    equals(inputVal);
+                } else {
+                    return;
+                }
                 break;
             case 'add':
-            case 'substract':
+            case 'subtract':
             case 'divide':
             case 'multiply':
-                equals(inputVal);
-                arithmetic(inputVal);
+                lastInputCheck(inputVal);
                 break;
         }
     } else {
-        logDigit(inputVal);
+        equalLastInputCheck();
+        // ensures there are no leading zeros when a numberEntry is initiated
+        if (inputVal === '0' && lastInputVal === '') {
+            inputVal = '';
+            return;
+        } else {
+            // Logs the digit input into the numberEntry
+            logDigit(inputVal);
+        }
     }
-}   
+    // updates the last input entered for reference
+    lastInputVal = inputVal;
+}
 
- // DOM EVENT LISTENTERS //
+// DOM EVENT LISTENTERS //
 window.onload = function () {
     document.getElementById("clickable").addEventListener("click", actionInput, false);
 }
 
-   // numberEntry button - initialise all number with zero. Append to end current displayed number else start new number
-   // plusminue button - toggle minus state         
-   // equals button -  check operator if null do nothing
-                        // else apply arimetic operation to accumulator and (apply state & logic rules to validate/cleanupNumber - Eval number string)
-                        // number (acc operator num) and save result as accumulator
-                        // new number becomes zero
-                        // display new number 
-    // arithmatic button - do equals button logic, then set operator to arithmetic sign.
-    // percentage = eval number into number set current number to number/100 = convert back to previous format (string) 
-    // CE - clear state, operation, number
-    // AC - call CE, clear Accummulator   
